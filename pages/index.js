@@ -31,11 +31,15 @@ const App = () => {
       }}
       polygonSideColor={() => "rgba(0, 200, 0, 0.1)"}
       polygonStrokeColor={() => "#111"}
+      polygonLabel={(datum) => {
+        const gdp_object = GDP_PER_CAPITA[datum.properties.ISO_A3] || {};
+        console.log(gdp_object);
+        return `
+        GDP PER CAPITA: ${gdp_object["GDP"]}
+      `;
+      }}
       polygonAltitude={(datum) => {
-        const gdp_object =
-          Object.values(GDP_PER_CAPITA).find(
-            (element) => element["Country Code"] === datum.properties.ISO_A3
-          ) || {};
+        const gdp_object = GDP_PER_CAPITA[datum.properties.ISO_A3] || {};
         return gdp_object["normalized_gdp"] || 0.1;
       }}
     />
