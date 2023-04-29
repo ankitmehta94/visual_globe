@@ -1,6 +1,7 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useMemo } from "react";
 import dynamic from "next/dynamic";
 import DATA from "../data/DATA.json";
+import GEODATA from "../data/GEODATA.json";
 import * as THREE from "three";
 const Globe = dynamic(import("react-globe.gl"), { ssr: false });
 
@@ -17,8 +18,22 @@ const DISPLAY_DATA = {
   },
 };
 
+const textureMap = {};
+GEODATA.features.forEach(async ({ properties: { ISO_A2 } }) => {
+  const url = `https://raw.githubusercontent.com/ankitmehta94/Globe_Statistics/master/flags/${ISO_A2}.png`;
+  const loader = new THREE.ImageLoader();
+  const imageBitmap = await loader.loadAsync(
+    url,
+    () => {},
+    () => {
+      console.error("Error loading image");
+    }
+  );
+  const texture = new THREE.CanvasTexture(imageBitmap);
+  const material = new THREE.MeshBasicMaterial({ map: texture });
+  textureMap[ISO_A2] = material;
+});
 const App = () => {
-  const [countries, setCountries] = useState({ features: [] });
   const [dataType, setDataType] = useState(GDP_PER_CAPITA);
   const [year, setYear] = useState(1960);
   const referalToSetInterval = useRef();
@@ -37,27 +52,14 @@ const App = () => {
   const pause = () => {
     clearInterval(referalToSetInterval.current);
   };
-  useEffect(() => {
-    // load data
-    fetch(
-      "https://raw.githubusercontent.com/ankitmehta94/Globe_Statistics/master/data.geojson"
-    )
-      .then((res) => res.json())
-      .then(setCountries);
-  }, []);
+
   const display = DISPLAY_DATA[dataType];
   return (
     <>
       <Globe
         globeImageUrl="https://unpkg.com/three-globe@2.24.10/example/img/earth-blue-marble.jpg"
-        polygonsData={countries.features}
-        polygonCapMaterial={(datum) => {
-          const texture = new THREE.TextureLoader().load(
-            `https://raw.githubusercontent.com/ankitmehta94/Globe_Statistics/master/flags/${datum.properties.ISO_A2}.png`
-          );
-          const material = new THREE.MeshBasicMaterial({ map: texture });
-          return material;
-        }}
+        polygonsData={GEODATA.features}
+        polygonCapMaterial={(datum) => textureMap[datum.properties.ISO_A2]}
         polygonSideColor={() => "rgba(0, 200, 0, 0.1)"}
         polygonStrokeColor={() => "#111"}
         polygonLabel={(datum) => {
@@ -69,7 +71,6 @@ const App = () => {
         }}
         polygonAltitude={(datum) => {
           if (DATA[datum.properties.ISO_A3]) {
-            console.log(DATA[datum.properties.ISO_A3][year][display.altitude]);
             return DATA[datum.properties.ISO_A3][year][display.altitude] || 0;
           } else return 0;
         }}
