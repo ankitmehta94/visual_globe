@@ -29,3 +29,16 @@
     border-radius: 5px;
     
   }
+
+  @media screen and (max-width: 480px) {
+    .overlay{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: fixed;
+        top: 80vh;
+        left:25vh;
+        transform: translate(-50%);
+        gap: 0.5em;
+      }
+  }
