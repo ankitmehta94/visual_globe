@@ -3,8 +3,7 @@
     position: relative;
     display: flex;
     justify-content: space-around;
-
-
+    width: 100%;
   }
   .tabInput:checked ~ .glow {
     transform: translateX(100%);

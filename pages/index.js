@@ -12,14 +12,12 @@ import {
   DISPLAY_DATA,
   GDP_PER_CAPITA,
   LOW_YEAR,
-  NUMBER_OF_YEARS,
   GDP,
   GDP_NAME,
   GDP_PER_CAPITA_NAME,
 } from "../data/constants";
-import { Play, PauseCircle } from "react-feather";
 import * as THREE from "three";
-import Tab from "../components/Tab";
+import Controls from "../components/Controls";
 const Globe = dynamic(import("react-globe.gl"), { ssr: false });
 
 const textureMap = {};
@@ -39,7 +37,7 @@ GEODATA.features.forEach(async ({ properties: { ISO_A2 } }) => {
 });
 const App = () => {
   const [dataType, setDataType] = useState(GDP_PER_CAPITA);
-  const [year, setYear] = useState(1960);
+  const [year, setYear] = useState(LOW_YEAR);
   const [isPlaying, setIsPlaying] = useState(false);
   const referalToSetInterval = useRef();
 
@@ -103,33 +101,14 @@ const App = () => {
           } else return 0;
         }}
       />
-      <div className="overlay">
-        <Tab
-          isContentDisplayed={false}
-          tabList={TAB_LIST}
-          selectedId={dataType}
-        />
-        <div>
-          <div className="controls">
-            {isPlaying ? (
-              <PauseCircle onClick={pause} />
-            ) : (
-              <Play onClick={play} />
-            )}
-
-            <div className="box">
-              <div
-                className="pencil"
-                style={{
-                  left: `${((year - LOW_YEAR) * 100) / NUMBER_OF_YEARS}%`,
-                }}
-              >
-                |
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <Controls
+        isPlaying={isPlaying}
+        tabList={TAB_LIST}
+        dataType={dataType}
+        year={year}
+        play={play}
+        pause={pause}
+      />
     </>
   );
 };
