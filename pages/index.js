@@ -8,26 +8,19 @@ import React, {
 import dynamic from "next/dynamic";
 import DATA from "../data/DATA.json";
 import GEODATA from "../data/GEODATA.json";
+import {
+  DISPLAY_DATA,
+  GDP_PER_CAPITA,
+  LOW_YEAR,
+  NUMBER_OF_YEARS,
+  GDP,
+  GDP_NAME,
+  GDP_PER_CAPITA_NAME,
+} from "../data/constants";
 import { Play, PauseCircle } from "react-feather";
 import * as THREE from "three";
+import Tab from "../components/Tab";
 const Globe = dynamic(import("react-globe.gl"), { ssr: false });
-
-const GDP = "GDP";
-const GDP_PER_CAPITA = "GDP_PER_CAPITA";
-const NORMALIZED_GDP = "NORMALIZED_GDP";
-const NORMALIZED_GDP_PER_CAPITA = "NORMALIZED_GDP_PER_CAPITA";
-
-const LOW_YEAR = 1960;
-const HIGH_YEAR = 2021;
-
-const NUMBER_OF_YEARS = HIGH_YEAR - LOW_YEAR;
-const DISPLAY_DATA = {
-  [GDP]: { altitude: NORMALIZED_GDP, label: GDP },
-  [GDP_PER_CAPITA]: {
-    altitude: NORMALIZED_GDP_PER_CAPITA,
-    label: GDP_PER_CAPITA,
-  },
-};
 
 const textureMap = {};
 GEODATA.features.forEach(async ({ properties: { ISO_A2 } }) => {
@@ -67,6 +60,24 @@ const App = () => {
     console.log(referalToSetInterval.current);
     clearInterval(referalToSetInterval.current);
   };
+  const TAB_LIST = useMemo(
+    () => [
+      {
+        id: GDP,
+        name: GDP_NAME,
+        Component: () => null,
+        onClick: () => setDataType(GDP),
+      },
+      {
+        id: GDP_PER_CAPITA,
+        name: GDP_PER_CAPITA_NAME,
+        Component: () => null,
+        onClick: () => setDataType(GDP_PER_CAPITA),
+      },
+    ],
+    []
+  );
+
   useEffect(() => {
     // play();
   }, []);
@@ -93,13 +104,11 @@ const App = () => {
         }}
       />
       <div className="overlay">
-        CURRENTLY WORK IN PROGRESS
-        <div>
-          <button onClick={() => setDataType(GDP)}>GDP</button>
-          <button onClick={() => setDataType(GDP_PER_CAPITA)}>
-            GDP PER CAPITA
-          </button>
-        </div>
+        <Tab
+          isContentDisplayed={false}
+          tabList={TAB_LIST}
+          selectedId={dataType}
+        />
         <div>
           <div className="controls">
             {isPlaying ? (
