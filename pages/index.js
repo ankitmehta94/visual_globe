@@ -1,7 +1,14 @@
-import React, { useEffect, useState, useRef, useMemo } from "react";
+import React, {
+  useEffect,
+  useState,
+  useRef,
+  useMemo,
+  useCallback,
+} from "react";
 import dynamic from "next/dynamic";
 import DATA from "../data/DATA.json";
 import GEODATA from "../data/GEODATA.json";
+import { Play, PauseCircle } from "react-feather";
 import * as THREE from "three";
 const Globe = dynamic(import("react-globe.gl"), { ssr: false });
 
@@ -10,6 +17,10 @@ const GDP_PER_CAPITA = "GDP_PER_CAPITA";
 const NORMALIZED_GDP = "NORMALIZED_GDP";
 const NORMALIZED_GDP_PER_CAPITA = "NORMALIZED_GDP_PER_CAPITA";
 
+const LOW_YEAR = 1960;
+const HIGH_YEAR = 2021;
+
+const NUMBER_OF_YEARS = HIGH_YEAR - LOW_YEAR;
 const DISPLAY_DATA = {
   [GDP]: { altitude: NORMALIZED_GDP, label: GDP },
   [GDP_PER_CAPITA]: {
@@ -36,9 +47,11 @@ GEODATA.features.forEach(async ({ properties: { ISO_A2 } }) => {
 const App = () => {
   const [dataType, setDataType] = useState(GDP_PER_CAPITA);
   const [year, setYear] = useState(1960);
+  const [isPlaying, setIsPlaying] = useState(false);
   const referalToSetInterval = useRef();
 
-  const play = () => {
+  const play = useCallback(() => {
+    setIsPlaying(true);
     referalToSetInterval.current = setInterval(() => {
       setYear((year) => {
         if (year < 2021) {
@@ -48,11 +61,15 @@ const App = () => {
         }
       });
     }, 500);
-  };
+  }, []);
   const pause = () => {
+    setIsPlaying(false);
+    console.log(referalToSetInterval.current);
     clearInterval(referalToSetInterval.current);
   };
-
+  useEffect(() => {
+    // play();
+  }, []);
   const display = DISPLAY_DATA[dataType];
   return (
     <>
@@ -84,9 +101,24 @@ const App = () => {
           </button>
         </div>
         <div>
-          <span onClick={play}>Play</span>
-          <span onClick={pause}>Pause</span>
-          <span>{year}</span>
+          <div className="controls">
+            {isPlaying ? (
+              <PauseCircle onClick={pause} />
+            ) : (
+              <Play onClick={play} />
+            )}
+
+            <div className="box">
+              <div
+                className="pencil"
+                style={{
+                  left: `${((year - LOW_YEAR) * 100) / NUMBER_OF_YEARS}%`,
+                }}
+              >
+                |
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </>
