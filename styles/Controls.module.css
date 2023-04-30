@@ -4,11 +4,13 @@
     align-items: center;
     position: fixed;
     top: 87vh;
-    left:50vh;
+    left:50vw;
     transform: translate(-50%);
     gap: 2em;
+    width:33vw;
   }
   .controls{
+    width: 100%;
     display: flex;
     flex-direction: row;
   }
@@ -23,7 +25,7 @@
   }
   
   .box{
-    width: 30vw;
+    width: 100%;
     height: 20px;
     border: 1px solid white;
     border-radius: 5px;
@@ -32,12 +34,13 @@
 
   @media screen and (max-width: 480px) {
     .overlay{
+        width:80vw;
         display: flex;
         flex-direction: column;
         align-items: center;
         position: fixed;
         top: 80vh;
-        left:25vh;
+        left:50vw;
         transform: translate(-50%);
         gap: 0.5em;
       }

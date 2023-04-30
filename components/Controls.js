@@ -16,23 +16,17 @@ export default function Controls({
     <div className={styles["overlay"]}>
       <span className={styles["year"]}>{year}</span>
       <Tab isContentDisplayed={false} tabList={tabList} selectedId={dataType} />
-      <div>
-        <div className={styles["controls"]}>
-          {isPlaying ? (
-            <PauseCircle onClick={pause} />
-          ) : (
-            <Play onClick={play} />
-          )}
+      <div className={styles["controls"]}>
+        {isPlaying ? <PauseCircle onClick={pause} /> : <Play onClick={play} />}
 
-          <div className={styles["box"]}>
-            <div
-              className={styles["pencil"]}
-              style={{
-                left: `${((year - LOW_YEAR) * 100) / NUMBER_OF_YEARS}%`,
-              }}
-            >
-              |
-            </div>
+        <div className={styles["box"]}>
+          <div
+            className={styles["pencil"]}
+            style={{
+              left: `${((year - LOW_YEAR) * 100) / NUMBER_OF_YEARS}%`,
+            }}
+          >
+            |
           </div>
         </div>
       </div>
