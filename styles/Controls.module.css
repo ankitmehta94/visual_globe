@@ -5,7 +5,7 @@
     position: fixed;
     top: 87vh;
     left:50vh;
-    transform: translate(-100%);
+    transform: translate(-50%);
     gap: 2em;
   }
   .controls{
