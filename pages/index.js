@@ -92,7 +92,7 @@ const App = () => {
           const label =
             DATA[datum.properties.ISO_A3][year][display.label] || "";
           return `
-        GDP PER CAPITA: ${label}
+        ${display.name}: ${label}
       `;
         }}
         polygonAltitude={(datum) => {
