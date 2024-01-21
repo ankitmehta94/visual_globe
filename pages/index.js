@@ -85,7 +85,7 @@ const App = () => {
       <Globe
         globeImageUrl="https://unpkg.com/three-globe@2.24.10/example/img/earth-blue-marble.jpg"
         polygonsData={GEODATA.features}
-        polygonCapMaterial={(datum) => textureMap[datum.properties.ISO_A2]}
+        killolygonCapMaterial={(datum) => textureMap[datum.properties.ISO_A2]}
         polygonSideColor={() => "rgba(0, 200, 0, 0.1)"}
         polygonStrokeColor={() => "#111"}
         polygonLabel={(datum) => {
@@ -114,3 +114,9 @@ const App = () => {
 };
 
 export default App;
+
+// To-Do List:
+// - Fix the issue of flags not showing up
+// - Add Tailwind
+// - Fix the problem of not playing on load
+// - Adjust zoom level on the items mentioned abov

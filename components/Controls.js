@@ -2,7 +2,6 @@ import React from "react";
 import Tab from "./Tab";
 import { Play, PauseCircle } from "react-feather";
 import { LOW_YEAR, NUMBER_OF_YEARS } from "../data/constants";
-import styles from "../styles/Controls.module.css";
 
 export default function Controls({
   isPlaying,
@@ -13,15 +12,15 @@ export default function Controls({
   pause,
 }) {
   return (
-    <div className={styles["overlay"]}>
-      <span className={styles["year"]}>{year}</span>
+    <div className="flex flex-col items-center fixed top-[87dvh] left-[50vw] translate-x-[-50%] gap-8 w-[33vw] md:w-[80vw]">
+      <span className="text-lg">{year}</span>
       <Tab isContentDisplayed={false} tabList={tabList} selectedId={dataType} />
-      <div className={styles["controls"]}>
+      <div className="w-full flex flex-row">
         {isPlaying ? <PauseCircle onClick={pause} /> : <Play onClick={play} />}
 
-        <div className={styles["box"]}>
+        <div className="w-full h-5 border border-white rounded">
           <div
-            className={styles["pencil"]}
+            className="relative top-[-6px] text-white text-lg"
             style={{
               left: `${((year - LOW_YEAR) * 100) / NUMBER_OF_YEARS}%`,
             }}
