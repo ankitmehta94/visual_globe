@@ -75,6 +75,7 @@ const App = () => {
   return (
     <>
       <Earth
+        tabList={TAB_LIST}
         setIsLoading={setIsLoading}
         dataType={dataType}
         textureMap={textureMap}
@@ -95,4 +96,4 @@ const App = () => {
 export default App;
 
 // To-Do List:
-// Make the labels better
+// Make the labels into charts

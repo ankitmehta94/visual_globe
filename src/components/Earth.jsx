@@ -1,10 +1,12 @@
 import Globe from "react-globe.gl";
 import DATA from "../../data/DATA.json";
 import { useRef, useEffect } from "react";
+import ReactDOMServer from "react-dom/server";
 import GEODATA from "../../data/GEODATA.json";
 import { DISPLAY_DATA } from "../../data/constants";
+import { Label } from "./Label";
 
-export const Earth = ({ dataType, textureMap, year }) => {
+export const Earth = ({ dataType, textureMap, year, tabList }) => {
   const globe = useRef();
   const display = DISPLAY_DATA[dataType];
 
@@ -26,10 +28,16 @@ export const Earth = ({ dataType, textureMap, year }) => {
       polygonSideColor={() => "rgba(0, 200, 0, 0.1)"}
       polygonStrokeColor={() => "#111"}
       polygonLabel={(datum) => {
-        const label = DATA[datum.properties.ISO_A3][year][display.label] || "";
-        return `
-          ${display.name}: ${label}
-        `;
+        const money = DATA[datum.properties.ISO_A3][year][display.label] || "";
+        const name = tabList.find(({ id }) => id === dataType).name;
+        return ReactDOMServer.renderToString(
+          <Label
+            country={datum.properties.BRK_NAME}
+            amount={money}
+            year={year}
+            label={name}
+          />
+        );
       }}
       polygonAltitude={(datum) => {
         if (DATA[datum.properties.ISO_A3]) {
