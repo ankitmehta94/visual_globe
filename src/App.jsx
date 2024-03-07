@@ -7,9 +7,11 @@ import {
   GDP_PER_CAPITA_NAME,
 } from "../data/constants";
 import GEODATA from "../data/GEODATA.json";
+import DATA from "../data/DATA.json";
 import Controls from "./components/Controls";
 import { Earth } from "./components/Earth";
 import { loadTextures } from "./utils/texture";
+import { Chart } from "./components/Chart";
 
 const App = () => {
   const [textureMap, setTextureMap] = useState(false);
@@ -18,7 +20,6 @@ const App = () => {
   const [year, setYear] = useState(LOW_YEAR);
   const [isPlaying, setIsPlaying] = useState(false);
   const [interval, setInervalValue] = useState();
-
   const play = useCallback(() => {
     setIsPlaying(true);
     setInervalValue(
