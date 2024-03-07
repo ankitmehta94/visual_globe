@@ -12,7 +12,7 @@ export default function Controls({
   pause,
 }) {
   return (
-    <div className="flex flex-col items-center fixed md:top-[84dvh] top-[72dvh] left-[50vw] translate-x-[-50%] gap-8 w-[80vw]">
+    <div className="flex flex-col items-center fixed md:top-[80dvh] top-[72dvh] left-[50vw] translate-x-[-50%] gap-8 w-[80vw]">
       <span className="text-lg">{year}</span>
       <Tab isContentDisplayed={false} tabList={tabList} selectedId={dataType} />
       <div className="w-full flex flex-row items-center gap-2">

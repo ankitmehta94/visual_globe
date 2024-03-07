@@ -1,34 +1,20 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Global Economic Data Visualization
 
-## Getting Started
+## Overview
 
-First, run the development server:
+This repository showcases a dynamic visualization of the Gross Domestic Product (GDP) and GDP Per Capita for all countries from 1962 to 2022. The data utilized in this project is derived from the World Bank, offering an insightful glance into the economic evolution of nations across the globe over the last six decades.
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+## Data Source
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The economic metrics featured in this visualization are sourced from the World Bank. For detailed information and to explore more data, visit the World Bank's official site: [World Bank Data](https://databank.worldbank.org/indicator/NY.GDP.MKTP.CD/1ff4a498/Popular-Indicators).
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## Demo
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+To see the data visualization in action, visit the live demo here: [GDP and GDP Per Capita Visualization Demo](https://visual-globe.vercel.app/).
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## Features
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- **Interactive Globe**: Navigate a 3D globe to explore country-specific economic data.
+- **Historical Data Analysis**: Compare and analyze the GDP and GDP Per Capita from 1962 to 2022.
+- **Data Filtering**: Easily switch between viewing GDP and GDP Per Capita metrics.
+- **Yearly Progression**: An interactive timeline allows users to observe economic changes through the years.
